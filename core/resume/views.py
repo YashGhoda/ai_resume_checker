@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
 
 # Create your views here.
 from rest_framework.views import APIView
@@ -16,7 +18,13 @@ class JobDescriptionAPI(APIView):
             'status':True,
             'data':serializer.data
         })
+    
 
+class ResumeAnalyzerView(APIView):
+    def get(self,request):
+        return render(request,'index.html')
+
+@method_decorator(csrf_exempt, name='dispatch')
 class AnalyzeResumeAPI(APIView):
     def post(self,request):
         try:

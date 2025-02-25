@@ -16,11 +16,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from resume.views import JobDescriptionAPI,AnalyzeResumeAPI
+from resume.views import JobDescriptionAPI,AnalyzeResumeAPI,ResumeAnalyzerView
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 urlpatterns = [
-    path('api/resume',AnalyzeResumeAPI.as_view()),
-    path('api/jobs',JobDescriptionAPI.as_view()),
+    path('',ResumeAnalyzerView.as_view(), name='home'),
+    path('api/resume',AnalyzeResumeAPI.as_view(), name='analyze_resume'),
+    path('api/jobs',JobDescriptionAPI.as_view(), name='job_descriptions'),
     path('admin/', admin.site.urls),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
