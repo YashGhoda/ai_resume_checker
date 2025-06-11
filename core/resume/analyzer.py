@@ -12,7 +12,7 @@ def extract_text_from_pdf(pdf_path):
 
     return text.strip()
 
-API_KEY = "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"
+API_KEY = "API_KEY"
 
 def analyze_resume_with_llm(resume_text:str,job_description:str) ->dict:
     prompt = f"""
